@@ -1,3 +1,6 @@
 {
-  "customElementScanner.mode": "manual"
+  "customElementScanner.mode": "manual",
+  "customElementScanner.paths": [
+    "@anuarhdz components://custom-elements.json"
+  ]
 }
