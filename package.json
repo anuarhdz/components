@@ -1,0 +1,21 @@
+{
+  "name": "@anuarhdz/components",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "manifest": "custom-elements-manifest analyze --globs 'src/**/*.js'"
+  },
+  "exports": {
+    "./element": {
+      "import": "./src/element.js"
+    }
+  },
+  "keywords": [],
+  "author": "Anuar Reyes <anuar@hey.com>",
+  "license": "MIT",
+  "description": "Custom Elements collection.",
+  "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.10.4"
+  },
+  "customElements": "custom-elements.json"
+}

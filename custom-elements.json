@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/element.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A custom HTML element that renders a simple message.",
+          "name": "CustomElement",
+          "members": [
+            {
+              "kind": "method",
+              "name": "render"
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "CustomElement",
+          "declaration": {
+            "name": "CustomElement",
+            "module": "src/element.js"
+          }
+        }
+      ]
+    }
+  ]
+}
