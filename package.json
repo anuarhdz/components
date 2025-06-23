@@ -8,6 +8,21 @@
   "exports": {
     "./element": {
       "import": "./src/element.js"
+    },
+    "./utils/focus": {
+      "import": "./src/utils/focus.js"
+    },
+    "./utils/header": {
+      "import": "./src/utils/header.js"
+    },
+    "./utils/helpers": {
+      "import": "./src/utils/helpers.js"
+    },
+    "./utils/request-idle-callback": {
+      "import": "./src/utils/request-idle-callback.js"
+    },
+    "./utils/scroll-block": {
+      "import": "./src/utils/scroll-block.js"
     }
   },
   "repository": {
