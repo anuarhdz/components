@@ -9,11 +9,17 @@
     "./element": {
       "import": "./src/element.js"
     },
+    "./header-component": {
+      "import": "./src/header-component.js"
+    },
     "./utils/focus": {
       "import": "./src/utils/focus.js"
     },
-    "./utils/header": {
-      "import": "./src/utils/header.js"
+    "./utils/header-height": {
+      "import": "./src/utils/header-height.js"
+    },
+    "./utils/header-observer": {
+      "import": "./src/utils/header-observer.js"
     },
     "./utils/helpers": {
       "import": "./src/utils/helpers.js"
