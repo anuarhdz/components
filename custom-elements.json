@@ -32,6 +32,788 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/header-component.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "HeaderComponent is a custom HTML element that manages a sticky header with various behaviors.\nIt supports \"always\", \"scroll-up\", and \"never\" sticky modes, and updates a CSS custom property\nfor the header's height. The component uses IntersectionObserver and ResizeObserver to track\nits position and size, and manages scroll direction and sticky state via data attributes.",
+          "name": "HeaderComponent",
+          "members": [
+            {
+              "kind": "field",
+              "name": "#lastScrollTop",
+              "privacy": "private",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "The last recorded scrollTop of the document, used for \"scroll-up\" sticky behavior."
+            },
+            {
+              "kind": "field",
+              "name": "#timeout",
+              "privacy": "private",
+              "type": {
+                "text": "number|null"
+              },
+              "default": "null",
+              "description": "Timeout for hiding animation in \"scroll-up\" sticky mode."
+            },
+            {
+              "kind": "field",
+              "name": "#animationDelay",
+              "privacy": "private",
+              "type": {
+                "text": "number"
+              },
+              "default": "150",
+              "description": "Duration to wait for hiding animation (ms)."
+            },
+            {
+              "kind": "field",
+              "name": "#intersectionObserver",
+              "privacy": "private",
+              "type": {
+                "text": "IntersectionObserver|null"
+              },
+              "default": "null",
+              "description": "Observer for sticky header position."
+            },
+            {
+              "kind": "field",
+              "name": "#offscreen",
+              "privacy": "private",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Whether the header is currently offscreen in \"scroll-up\" mode."
+            },
+            {
+              "kind": "field",
+              "name": "#resizeObserver",
+              "privacy": "private",
+              "default": "new ResizeObserver(([entry]) => { if (!entry) return; const { height } = entry.target.getBoundingClientRect(); document.body.style.setProperty(\"--header-block-size\", `${height}px`); })",
+              "description": "Observer to keep the global `--header-block-size` property updated.",
+              "type": {
+                "text": "ResizeObserver"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "#observeStickyPosition",
+              "privacy": "private",
+              "description": "Observes the header while scrolling the viewport to track when its actively sticky",
+              "parameters": [
+                {
+                  "description": "Determines if we need to observe when the header is offscreen",
+                  "name": "alwaysSticky",
+                  "type": {
+                    "text": "Boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "#handleWindowScroll",
+              "privacy": "private"
+            }
+          ],
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "tagName": "header-component",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "HeaderComponent",
+          "declaration": {
+            "name": "HeaderComponent",
+            "module": "src/header-component.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "header-component",
+          "declaration": {
+            "name": "HeaderComponent",
+            "module": "src/header-component.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/utils/focus.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "trapFocus",
+          "parameters": [
+            {
+              "name": "container",
+              "description": "The container to trap focus within.",
+              "type": {
+                "text": "HTMLElement"
+              }
+            }
+          ],
+          "description": "Trap focus within the given container."
+        },
+        {
+          "kind": "function",
+          "name": "removeTrapFocus",
+          "description": "Remove focus trap and optionally refocus another element."
+        },
+        {
+          "kind": "function",
+          "name": "cycleFocus",
+          "parameters": [
+            {
+              "name": "items",
+              "type": {
+                "text": "HTMLElement[]"
+              }
+            },
+            {
+              "name": "increment",
+              "type": {
+                "text": "number"
+              }
+            }
+          ],
+          "description": "Cycle focus to the next or previous link"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "trapFocus",
+          "declaration": {
+            "name": "trapFocus",
+            "module": "src/utils/focus.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "removeTrapFocus",
+          "declaration": {
+            "name": "removeTrapFocus",
+            "module": "src/utils/focus.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "cycleFocus",
+          "declaration": {
+            "name": "cycleFocus",
+            "module": "src/utils/focus.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/utils/header-height.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "calculateHeaderGroupHeight",
+          "parameters": [
+            {
+              "name": "header",
+              "default": "document.querySelector(\"#header-component\")",
+              "description": "The header element to exclude from the calculation.",
+              "optional": true,
+              "type": {
+                "text": "HTMLElement|null"
+              }
+            },
+            {
+              "name": "headerGroup",
+              "default": "document.querySelector(\"#header-group\")",
+              "description": "The container whose children's heights are summed.",
+              "optional": true,
+              "type": {
+                "text": "HTMLElement|null"
+              }
+            }
+          ],
+          "description": "Calculates the total height of all child elements within the header group,\nexcluding the header element itself.",
+          "return": {
+            "type": {
+              "text": "number"
+            }
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "calculateHeaderGroupHeight",
+          "declaration": {
+            "name": "calculateHeaderGroupHeight",
+            "module": "src/utils/header-height.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/utils/header-observer.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "HeaderObserver"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "HeaderObserver",
+          "declaration": {
+            "name": "HeaderObserver",
+            "module": "src/utils/header-observer.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/utils/helpers.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "debounce",
+          "parameters": [
+            {
+              "name": "fn",
+              "description": "The function to debounce",
+              "type": {
+                "text": "T"
+              }
+            },
+            {
+              "name": "wait",
+              "description": "The time (in milliseconds) to wait before calling fn",
+              "type": {
+                "text": "number"
+              }
+            }
+          ],
+          "description": "Creates a debounced function that delays calling the provided function (fn)\nuntil after wait milliseconds have elapsed since the last time\nthe debounced function was invoked. The returned function has a .cancel()\nmethod to cancel any pending calls.",
+          "return": {
+            "type": {
+              "text": "T & { cancel(): void }"
+            }
+          }
+        },
+        {
+          "kind": "function",
+          "name": "throttle",
+          "parameters": [
+            {
+              "name": "fn",
+              "description": "The function to throttle",
+              "type": {
+                "text": "T"
+              }
+            },
+            {
+              "name": "delay",
+              "description": "The time (in milliseconds) to wait before calling fn",
+              "type": {
+                "text": "number"
+              }
+            }
+          ],
+          "description": "Creates a throttled function that calls the provided function (fn) at most once per every wait milliseconds",
+          "return": {
+            "type": {
+              "text": "T & { cancel(): void }"
+            }
+          }
+        },
+        {
+          "kind": "function",
+          "name": "onDocumentReady",
+          "parameters": [
+            {
+              "name": "callback",
+              "description": "The function to call when the document is ready.",
+              "type": {
+                "text": "() => void"
+              }
+            }
+          ],
+          "description": "Check if the document is ready and call the callback when it is."
+        },
+        {
+          "kind": "function",
+          "name": "onAnimationEnd",
+          "parameters": [
+            {
+              "name": "elements",
+              "description": "The element(s) whose animations to wait for.",
+              "type": {
+                "text": "Element | Element[]"
+              }
+            },
+            {
+              "name": "callback",
+              "description": "The function to call when all animations are finished.",
+              "optional": true,
+              "type": {
+                "text": "() => void"
+              }
+            },
+            {
+              "name": "options",
+              "default": "{ subtree: true }",
+              "description": "The options to pass to `Element.getAnimations`.",
+              "optional": true,
+              "type": {
+                "text": "Object"
+              }
+            }
+          ],
+          "description": "Wait for all animations to finish before calling the callback.",
+          "return": {
+            "type": {
+              "text": "Promise<void>"
+            }
+          }
+        },
+        {
+          "kind": "function",
+          "name": "isClickedOutside",
+          "parameters": [
+            {
+              "name": "event",
+              "description": "The mouse event.",
+              "type": {
+                "text": "MouseEvent"
+              }
+            },
+            {
+              "name": "element",
+              "description": "The element to check.",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ],
+          "description": "Check if the click is outside the element.",
+          "return": {
+            "type": {
+              "text": "boolean"
+            }
+          }
+        },
+        {
+          "kind": "function",
+          "name": "isPointWithinElement",
+          "parameters": [
+            {
+              "name": "x",
+              "description": "The x coordinate of the point.",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "name": "y",
+              "description": "The y coordinate of the point.",
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "name": "element",
+              "description": "The element to check.",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ],
+          "description": "Check if a point is within an element.",
+          "return": {
+            "type": {
+              "text": "boolean"
+            }
+          }
+        },
+        {
+          "kind": "function",
+          "name": "getVisibleElements",
+          "parameters": [
+            {
+              "name": "root",
+              "description": "The element within which elements should be visible.",
+              "type": {
+                "text": "Element"
+              }
+            },
+            {
+              "name": "elements",
+              "description": "The elements to check for visibility.",
+              "type": {
+                "text": "T[] | undefined"
+              }
+            },
+            {
+              "name": "ratio",
+              "default": "1",
+              "description": "The minimum percentage of the element that must be visible.",
+              "optional": true,
+              "type": {
+                "text": "number"
+              }
+            },
+            {
+              "name": "axis",
+              "description": "Whether to only check along 'x' axis, 'y' axis, or both if undefined.",
+              "optional": true,
+              "type": {
+                "text": "'x' | 'y'"
+              }
+            }
+          ],
+          "description": "Get the visible elements within a root element.",
+          "return": {
+            "type": {
+              "text": "T[]"
+            }
+          }
+        },
+        {
+          "kind": "function",
+          "name": "changeMetaThemeColor",
+          "parameters": [
+            {
+              "name": "colorSourceElement",
+              "description": "The HTML element whose background-color will determine the new theme-color.",
+              "type": {
+                "text": "Element"
+              }
+            }
+          ],
+          "description": "Change the meta theme color of the header."
+        },
+        {
+          "kind": "function",
+          "name": "setMetaThemeColor",
+          "parameters": [
+            {
+              "name": "colorSourceElement",
+              "description": "The DOM element from which to read the CSS property value.",
+              "type": {
+                "text": "Element"
+              }
+            },
+            {
+              "name": "propertyName",
+              "default": "\"--color-background\"",
+              "description": "The CSS custom property to use for the theme color.",
+              "optional": true,
+              "type": {
+                "text": "string"
+              }
+            }
+          ],
+          "description": "Sets the content of the <meta name=\"theme-color\"> tag to the value of a specified CSS property\nfrom a given element. This is useful for dynamically updating the browser's theme color."
+        },
+        {
+          "kind": "function",
+          "name": "upgradeProperty",
+          "parameters": [
+            {
+              "name": "obj",
+              "type": {
+                "text": "T"
+              }
+            },
+            {
+              "name": "prop",
+              "type": {
+                "text": "keyof T"
+              }
+            }
+          ],
+          "description": "from https://web.dev/custom-elements-best-practices/#make-properties-lazy\nCaptures the value from the unupgraded instance and deletes the property so it does\nnot shadow the custom element's own property setter. This way, when the element's\ndefinition does finally load, it can immediately reflect the correct state."
+        },
+        {
+          "kind": "function",
+          "name": "waitForAttribute",
+          "parameters": [
+            {
+              "name": "selector",
+              "description": "The CSS selector for the target element.",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "attributeName",
+              "description": "The name of the attribute to observe.",
+              "type": {
+                "text": "string"
+              }
+            }
+          ],
+          "description": "Observes the DOM for an element matching the given selector that has the specified attribute.\nResolves with the element once it is found with the attribute present.",
+          "return": {
+            "type": {
+              "text": "Promise<HTMLElement>"
+            }
+          }
+        },
+        {
+          "kind": "class",
+          "description": "Observes the presence of a specific attribute on a DOM element matching a selector.\nCalls the provided callback whenever the attribute is added or removed.",
+          "name": "AttributeObserver",
+          "members": [
+            {
+              "kind": "method",
+              "name": "init",
+              "description": "Initializes the observer by finding the element and setting up mutation observers.",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "#observerElementAppearance",
+              "privacy": "private",
+              "description": "Observes the appearance of the element in the DOM and starts attribute observation when found."
+            },
+            {
+              "kind": "method",
+              "name": "#observeAttributes",
+              "privacy": "private",
+              "description": "Sets up a MutationObserver to watch for changes to the specified attribute."
+            },
+            {
+              "kind": "method",
+              "name": "#notify",
+              "privacy": "private",
+              "description": "Notifies the callback with the current attribute state."
+            },
+            {
+              "kind": "method",
+              "name": "disconnect",
+              "description": "Disconnects all MutationObservers to clean up resources."
+            },
+            {
+              "kind": "field",
+              "name": "selector",
+              "default": "selector"
+            },
+            {
+              "kind": "field",
+              "name": "attributeName",
+              "default": "attributeName"
+            },
+            {
+              "kind": "field",
+              "name": "callback",
+              "default": "callback"
+            },
+            {
+              "kind": "field",
+              "name": "element",
+              "type": {
+                "text": "null"
+              },
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "mutationObserver",
+              "type": {
+                "text": "null"
+              },
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "elementObserver",
+              "type": {
+                "text": "null"
+              },
+              "default": "null"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "debounce",
+          "declaration": {
+            "name": "debounce",
+            "module": "src/utils/helpers.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "throttle",
+          "declaration": {
+            "name": "throttle",
+            "module": "src/utils/helpers.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "onDocumentReady",
+          "declaration": {
+            "name": "onDocumentReady",
+            "module": "src/utils/helpers.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "onAnimationEnd",
+          "declaration": {
+            "name": "onAnimationEnd",
+            "module": "src/utils/helpers.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "isClickedOutside",
+          "declaration": {
+            "name": "isClickedOutside",
+            "module": "src/utils/helpers.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "isPointWithinElement",
+          "declaration": {
+            "name": "isPointWithinElement",
+            "module": "src/utils/helpers.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getVisibleElements",
+          "declaration": {
+            "name": "getVisibleElements",
+            "module": "src/utils/helpers.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "changeMetaThemeColor",
+          "declaration": {
+            "name": "changeMetaThemeColor",
+            "module": "src/utils/helpers.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "setMetaThemeColor",
+          "declaration": {
+            "name": "setMetaThemeColor",
+            "module": "src/utils/helpers.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "upgradeProperty",
+          "declaration": {
+            "name": "upgradeProperty",
+            "module": "src/utils/helpers.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "waitForAttribute",
+          "declaration": {
+            "name": "waitForAttribute",
+            "module": "src/utils/helpers.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "AttributeObserver",
+          "declaration": {
+            "name": "AttributeObserver",
+            "module": "src/utils/helpers.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/utils/request-idle-callback.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "requestIdleCallback",
+          "description": "Request an idle callback or fallback to setTimeout",
+          "return": {
+            "type": {
+              "text": "function"
+            }
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "requestIdleCallback",
+          "declaration": {
+            "name": "requestIdleCallback",
+            "module": "src/utils/request-idle-callback.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/utils/scroll-block.js",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "ScrollBlock",
+          "parameters": [
+            {
+              "name": "selector",
+              "description": "The CSS selector to watch for in the DOM.",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "attributeName",
+              "default": "\"open\"",
+              "description": "The attribute name to observe for mutations.",
+              "optional": true,
+              "type": {
+                "text": "string"
+              }
+            }
+          ],
+          "description": "Observes the DOM for changes related to a specific selector or attribute,\nand toggles the \"scroll-block\" attribute on the <body> element based on the presence\nof the selector in the document."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ScrollBlock",
+          "declaration": {
+            "name": "ScrollBlock",
+            "module": "src/utils/scroll-block.js"
+          }
+        }
+      ]
     }
   ]
 }
